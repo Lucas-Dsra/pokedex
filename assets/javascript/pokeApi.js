@@ -28,7 +28,7 @@ pokeApi.getDetainsPokemons = (pokemon) => {
 
 
 
-pokeApi.getPokemons = (limit = 54, offset = 0) => {
+pokeApi.getPokemons = (limit, offset) => {
 
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
     

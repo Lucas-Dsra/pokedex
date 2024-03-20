@@ -1,4 +1,7 @@
 const  childPokemonOl = document.getElementById('pokemonList')
+const loadItem = document.getElementById('load')
+const limit = 5;
+let offset = 0;
 
 function orderFormart(pokemosOrder){
   if (pokemosOrder < 10) {
@@ -25,23 +28,16 @@ function createPokemonList (pokemon) {
     </li>
     `
 }
-pokeApi.getPokemons().then((pokemonItens) => {
-    childPokemonOl.innerHTML += pokemonItens.map(createPokemonList).join('')
-
-    // Podemos fazer desse modo, mas é muito verboso
-        //    const listEmHTml = []
-        //
-        //        for (let i = 0; i < pokemonItens.length; i++) {
-        //        const pokemon = pokemonItens[i];
-        //        listEmHTml.push(createPokemonList (pokemon))
-        //    }
-        //
-        //    console.log(listEmHTml)
-        //
+function loadPokemon(limit,offset){
+    pokeApi.getPokemons(limit, offset).then((pokemonItens = []) => {
+        const newHTML = pokemonItens.map(createPokemonList).join('')
+        childPokemonOl.innerHTML += newHTML
     })
-    .catch((erro) => console.error(erro))
+}
 
-    
+loadPokemon(limit, offset)
 
-
-
+loadItem.addEventListener('click', () => {
+    offset += limit
+    loadPokemon(limit, offset)
+})
